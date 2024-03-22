@@ -1,4 +1,5 @@
 # Parallel Amplitude Embedding
+
 This is our submission for QHack24 - it is an extension of the algorithm QPIXL (Amankwah et al., May 2022, https://www.nature.com/articles/s41598-022-11024-y) that parallelizes the input so that for N 'address qubits' you can have N 'data qubits', which has the same circuit depth as just encoding a single image in QPIXL. This is done by exploiting the fact that in QPIXL each address qubit is targeted only once per layer in QPIXL. This encoding works, but decoding the image is less straightforward. Nonetheless, this submission implements that and attempts to use this parallel QPIXL to do some batched quantum machine learning. 
 
 - Contents
@@ -19,6 +20,7 @@ This is our submission for QHack24 - it is an extension of the algorithm QPIXL (
             - Defining QNN tree tensor network ansatz
             - running hybrid classical-quantum QNN
 
+Contributors: Daniel Bultrini, Jing Sun
 
 # Introduction
 A series of python modules for implementing Quantum Image and Signal Processing protocols for image encoding, classification, and alteration using Quantum Machine Learning.
