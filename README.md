@@ -20,7 +20,7 @@ This is our submission for QHack24 - it is an extension of the algorithm QPIXL (
             - Defining QNN tree tensor network ansatz
             - running hybrid classical-quantum QNN
 
-Contributors: Daniel Bultrini, Jing Sun
+Contributors: Daniel Bultrini, Jing Sun, Vineesha Srivastrava, Tobias Thaller
 
 # Introduction
 A series of python modules for implementing Quantum Image and Signal Processing protocols for image encoding, classification, and alteration using Quantum Machine Learning.
