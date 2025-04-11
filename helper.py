@@ -105,11 +105,36 @@ def convertToAngles(a):
     a = a *scal
     return a
 
-def convertToGrayscale(a,maxval=1):
-    """Converts encoded postprocessed statevector back to grayscale, normalized to maxval"""
-    scal = 2*maxval/np.pi 
-    a = a * scal
+def convertFromAngles(a,maxval=1,minval=0):
+    """Converts image from angles"""
+    scal = np.pi/(maxval*2)
+    a = a /scal
     return a
+
+
+def convertToGrayscaleOld(arr,maxval=1,minval=0):
+    """Converts encoded postprocessed statevector back to grayscale, normalized to maxval"""
+    scal = 2*(maxval)/np.pi
+    arr = arr * scal
+    # arr = ((arr - arr.min()+minval) * (1/(arr.max() - arr.min()) * maxval))
+    return arr
+
+def convertToGrayscale(arr, maxval=1, minval=0):
+    """
+    Scales an array so that its minimum and maximum values lie between new_min and new_max.
+
+    Args:
+        arr (numpy.ndarray): Input array to be scaled.
+        new_min (float): The desired minimum value of the scaled array.
+        new_max (float): The desired maximum value of the scaled array.
+
+    Returns:
+        numpy.ndarray: Scaled array with values between new_min and new_max.
+    """
+    old_min = np.min(arr)
+    old_max = np.max(arr)
+    scaled_arr = (arr - old_min) / (old_max - old_min) * (maxval - minval) + minval
+    return scaled_arr
 
 def countr_zero(n,n_bits=8):
     """Returns the number of consecutive 0 bits 
@@ -144,7 +169,7 @@ def readpgm(name):
         
     return (np.array(data[3:]),(data[1],data[0]),data[2])
 
-def pad_0(img):
+def pad_0(img,val=0):
     """Pads array with 0s to next power of two
 
     Args:
@@ -155,9 +180,9 @@ def pad_0(img):
     """
     img = np.array(img)
     img.flatten()
-    return np.pad(img,(0,nextpow2(len(img))-len(img)))
+    return np.pad(img,(0,nextpow2(len(img))-len(img)),constant_values=val)
 
-def decodeQPIXL(state,max_pixel_val=255, state_to_prob = np.abs):
+def decodeQPIXL(state,min_pixel_val=0,max_pixel_val=255, state_to_prob = np.abs, scaling = convertToGrayscale):
     """Automatically decodes qpixl output statevector
 
     Args:
@@ -173,7 +198,7 @@ def decodeQPIXL(state,max_pixel_val=255, state_to_prob = np.abs):
     pv = np.zeros(len(state)//2)
     for i in range(0,len(state),2):
         pv[i//2]=np.arctan2(state[i+1],state[i])
-    return convertToGrayscale(pv,max_pixel_val)
+    return scaling(pv,max_pixel_val,min_pixel_val)
 
 def permute_bits(b,bitlength=8,shift=1):
     """cyclic permutation of bits
@@ -236,7 +261,7 @@ class examples():
     def __init__(self) -> None:
         """SImple holder class with some example images
         """
-        self.space= np.array([[0,0,0,0,1,1,1,0],
+        self.space= np.array([  [0,0,0,0,1,1,1,0],
                                 [0,0,0,1,1,0,0,0],
                                 [1,0,1,1,1,1,1,0],
                                 [0,1,1,0,1,1,0,1],

@@ -1,0 +1,17 @@
+[project]
+name = "poetry-demo"
+version = "0.0.1"
+requires-python = "=3.12.9"
+
+[tool.poetry]
+package-mode = false
+[tool.poetry.dependencies]
+qiskit = "^2.0.0"
+matplotlib = "^3.10.1"
+ipykernel = "^6.29.5"
+pillow = "^11.1.0"
+ipywidgets = "^8.1.5"
+qiskit-aer = "^0.17.0"
+soundfile = "^0.13.1"
+pylatexenc = "^2.10"
+playsound3 = "^3.2.2"
