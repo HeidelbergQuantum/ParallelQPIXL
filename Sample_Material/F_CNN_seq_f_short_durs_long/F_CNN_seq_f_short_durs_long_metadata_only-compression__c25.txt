@@ -1,0 +1,5 @@
+Tag: only-compression
+Input1: 0
+Input2: 0
+Compression: 25
+

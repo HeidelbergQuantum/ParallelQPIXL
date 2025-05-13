@@ -1,0 +1,5 @@
+Tag: rxry
+Input1: 0.06159985595274104
+Input2: -0.06159985595274104
+Compression: 0
+

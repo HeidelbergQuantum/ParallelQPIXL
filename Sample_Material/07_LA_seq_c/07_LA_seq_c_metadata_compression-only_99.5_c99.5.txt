@@ -1,0 +1,5 @@
+Tag: compression-only
+Input1: 0
+Input2: 0
+Compression: 99.5
+
